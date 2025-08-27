@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiwoon Heroes</title>  
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="css/style.css" />	
-  <!-- --webkit 같은 prefix를 사용하지 않도록 도와주는 라이브러리. 현재는 거의 사용 안함  -->
-	<!-- <script type="text/javascript" src="js/prefixfree.min.js"></script> -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiwoom Heroes</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-  <!-- 배경동영상 ---------------------------------------------------------------------------->
+  <!-- 배경 동영상 -->
   <figure class="vid">
     <video loop autoplay muted>
-      <source src="img/heros.mp4" type="video/mp4">
+      <source src="img/heros.mp4" type="video/mp4"/>
     </video>
   </figure>
-  <!-- /배경동영상-->
 
-  <!-- 로고 ---------------------------------------------------------------------->
-  <h1><img src="img/logo.png" alt="Kiwoom Heroes 로고"></h1>
   <!-- 로고 -->
+  <h1><img src="img/logo.png" alt="Kiwoom Heroes 로고"/></h1>
 
-  <!-- header --------------------------------------------------------------------------------->
+  <!-- 왼쪽 패널 + GNB -->
   <header>
     <ul id="gnb">
       <li class="on">
-        <a href="#"><em><i class="fa fa-refresh fa-spin"></i>About Heroes</em></a>
+        <a href="#"><em><i class="fa fa-refresh fa-spin"></i> About Heroes</em></a>
         <ul>
-          <li><a href="#"><em>구단소개</em></a></li>  
-          <li><a href="#"><em>구단 파트너</em></a></li>  
-          <li><a href="#"><em>구장 안내</em></a></li>  
+          <li><a href="#"><em>구단소개</em></a></li>
+          <li><a href="#"><em>구단 파트너</em></a></li>
+          <li><a href="#"><em>구장 안내</em></a></li>
         </ul>
       </li>
       <li>
-        <a href="#"><em>Players</em></a>
+        <a href="#"><em>PLAYERS</em></a>
         <ul>
           <li><a href="#"><em>투수</em></a></li>
           <li><a href="#"><em>포수</em></a></li>
@@ -43,7 +39,14 @@
         </ul>
       </li>
       <li>
-        <a href="#"><em>Games</em></a>
+        <a href="#"><em>GAMES</em></a>
+        <ul>
+          <li><a href="#"><em>경기일정 및 결과</em></a></li>
+          <li><a href="#"><em>선수 등록 현황</em></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><em>STATS</em></a>
         <ul>
           <li><a href="#"><em>팀 순위</em></a></li>
           <li><a href="#"><em>투수 성적</em></a></li>
@@ -51,75 +54,79 @@
         </ul>
       </li>
       <li>
-        <a href="#"><em>Ticket</em></a>
+        <a href="#"><em>TICKET</em></a>
         <ul>
           <li><a href="#"><em>연간회원</em></a></li>
           <li><a href="#"><em>멤버십</em></a></li>
           <li><a href="#"><em>단체관람</em></a></li>
-          <li><a href="#"><em>스카이박스</em></a></li>  
+          <li><a href="#"><em>스카이박스</em></a></li>
         </ul>
       </li>
     </ul>
-    
   </header>
-  <!-- /header -->
-  <!-- sns 아이콘                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               -->
-    <ul id="sns">
-      <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-      <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-      <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-    </ul>
 
-      <!-- 웹폰트 텍스트박스 -->
-	<section class="txtBox">
-		<p class="txt">Time to win<b>Heros</b></p>
-		<p class="tit">V1</p>
-	</section>
- <span class="trigger">V1</span>
+  <!-- SNS -->
+  <ul id="sns">
+    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+    <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+  </ul>
 
-<!-- 오른쪽 컨텐츠 박스 -->
-<section id="side">
-  <div class="con">
-    <p>
-      <em>Event</em>
-      <a href="#"><img src="img/pic1.png" /></a>
-    </p>
-    <p>
-      <em>News & Notice</em>
-      <a href="#"><img src="img/pic2.png" /></a>
-    </p>
-    <p>
-      <em>Game Review</em>
-      <a href="#"><img src="img/pic3.png" /></a>
-    </p>
-  </div>
-</section>
+  <!-- 텍스트 박스 / V1 트리거 -->
+  <section class="txtBox">
+    <p class="txt">Click me!</p>
+    <p class="tit" id="v1Trigger">V1</p>
+  </section>
 
-	<!-- 하단 컨텐츠박스 -->
-	<section id="side">
-    
-		<div class="con">
-			<p>
-				<em>Game Review</em>
-				<a href="#"><img src="img/pic1.png" /></a>				
-			</p>
-			<p>
-				<em>Event</em>
-				<a href="#"><img src="img/pic2.png" /></a>				
-			</p>
-			<p>
-				<em>News & Notice</em>
-				<a href="#"><img src="img/pic3.png" /></a>				
-			</p>		
-		</div>	
-		<!-- 자동롤링 버튼 -->
-		<div class="btnContents">
-			<i class="fa fa-angle-double-left"></i>
-			<i class="fa fa-angle-double-left"></i>  
-			<i class="fa fa-angle-double-left"></i>
-		</div>
-	</section>
+  <!-- 오른쪽 컨텐츠 박스 (기본 숨김, 클릭 시 노출) -->
+  <section id="side" aria-hidden="true">
+    <button class="close-btn" aria-label="닫기">×</button>
+    <div class="con">
+      <!-- Row 1 -->
+      <div class="content-row">
+        <a class="thumb" href="https://example.com/video1" target="_blank" rel="noopener">
+          <img src="img/pic1.jpg" alt="img1">
+        </a>
+        <p class="label">New video!</p>
+      </div>
 
+      <!-- Row 2 -->
+      <div class="content-row alt">
+        <p class="label">new video@</p>
+        <a class="thumb" href="https://example.com/video2" target="_blank" rel="noopener">
+          <img src="img/pic2.jpg" alt="img2">
+        </a>
+      </div>
 
+      <!-- Row 3 -->
+      <div class="content-row">
+        <a class="thumb" href="https://example.com/description" target="_blank" rel="noopener">
+          <img src="img/pic3.jpg" alt="img3">
+        </a>
+        <p class="label">describe</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 간단 JS: V1 클릭 → 사이드 열기 / 닫기 버튼 → 닫기 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const v1 = document.getElementById("v1Trigger");
+      const side = document.getElementById("side");
+      const closeBtn = side.querySelector(".close-btn");
+
+      v1.addEventListener("click", () => {
+        v1.classList.add("pulse");
+        side.classList.add("active");
+        side.setAttribute("aria-hidden", "false");
+        setTimeout(()=> v1.classList.remove("pulse"), 500);
+      });
+
+      closeBtn.addEventListener("click", () => {
+        side.classList.remove("active");
+        side.setAttribute("aria-hidden", "true");
+      });
+    });
+  </script>
 </body>
 </html>

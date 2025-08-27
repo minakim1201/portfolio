@@ -1,166 +1,273 @@
 @import url(http://fonts.googleapis.com/css?family=Play);
 @import url(http://fonts.googleapis.com/css?family=Monoton);
 
-/* Reset CSS */
-*{margin: 0;padding: 0;}
-ul,ol{list-style: none;}
-a{text-decoration: none;color:#bbb}
-body{position: fixed;width: 100%;height: 100%;background: #111;}
+/* =========================================================
+   Design Tokens (색/광/유리/네온 통일)
+   ========================================================= */
+:root{
+  /* 메인 와인/자주 계열 */
+  --wine-1:#7a1f3d;
+  --wine-2:#a83250;
+  --wine-3:#9c2b57;
+  --wine-4:#d14670;
 
-/* 배경동영상 - full screen */
-.vid{width: 100%;height: 100%;position: fixed;top: -85px;left: 0px;opacity: 0.9;}
-.vid video{
-  width: 100%; 
-  min-width: 1600px; /* 1600px이상 */
+  /* 유리 카드/외곽선 */
+  --glass-bg-1: rgba(255,255,255,.08);
+  --glass-bg-2: rgba(255,255,255,.02);
+  --glass-brd : rgba(255,255,255,.10);
+  --glass-inset: rgba(255,255,255,.06);
+
+  /* 네온/하이라이트 */
+  --neon-rail-grad: linear-gradient(180deg, #ff4d7a, #7b5cff);
+  --neon-rail-glow-1: rgba(255,77,122,.8);
+  --neon-rail-glow-2: rgba(123,92,255,.7);
+  --neon-sweep: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 8%, transparent 14%) no-repeat;
+
+  /* 텍스트 */
+  --txt-strong:#fffef8;
+  --txt-base:#f3f3f3;
+
+  /* 바탕 */
+  --page-bg:#111;
+
+  /* 공통 그림자 */
+  --shadow-lg: 0 20px 40px rgba(0,0,0,.45);
+  --shadow-md: 0 12px 24px rgba(0,0,0,.35);
 }
 
-/* Heros 로고 */
-h1{position: fixed;top:20px;left:20px;z-index:10;}
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;}
+ul,ol{list-style:none;}
+a{text-decoration:none;color:#bbb}
 
+/* 화면 배경 */
+html,body{height:100%;}
+body{position:fixed;width:100%;height:100%;background:var(--page-bg);}
+
+/* ===== 배경 비디오 ===== */
+.vid{position:fixed;inset:0;z-index:-1;overflow:hidden;}
+.vid>video{width:100vw;height:100dvh;object-fit:cover;object-position:center;}
+
+/* ===== 로고 ===== */
+h1{position:fixed;top:40px;left:40px;z-index:10;}
 h1 img{
-  width: 200px;height: auto; background: transparent;
-  display: block;
+  width:200px;height:auto;display:block;background:transparent;
+  animation:logoFloat 6s ease-in-out infinite;
+  transition:transform .3s ease, filter .3s ease;
+  filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));
+}
+h1 img:hover{transform:scale(1.05) rotate(-1deg);filter:drop-shadow(0 10px 18px rgba(0,0,0,.4));}
+@keyframes logoFloat{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
 
-  animation: logoFloat 6s ease-in-out infinite;
-  transition: transform .3s ease, filter .3s ease;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,.25));
-}
-h1 img:hover {
-  transform: scale(1.05) rotate(-1deg);
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.4));
-}
-@keyframes logoFloat {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-
+/* =========================
+   AURORA NEON SIDEBAR (메뉴바)
+   ========================= */
 header{
-  width:550px;
-  height: 100%;
-  position:fixed;
-  transform: skewX(-30deg);
-  left:-420px;
-  /* 그라데이션 */
-  background: linear-gradient(
-    180deg,          /* 위→아래 */
-    #7b0037c1 0%,
-    #760c0cb6 35%,
-    #8f1b1bae 65%,
-    #610a0ab3 100%
-  );
+  width:300px;height:100%; position:fixed;
+  background:
+    radial-gradient(120% 100% at 10% 0%, rgba(255,90,120,.18) 0%, transparent 60%),
+    radial-gradient(120% 100% at 100% 100%, rgba(110,40,255,.18) 0%, transparent 60%),
+    rgba(10,10,14,.55);
+  border-right:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 50px rgba(255,50,80,.08) inset;
 }
 
 
-/* 1depth */
-#gnb{width:220px;position:absolute;top:150px;right:0px;}
-#gnb>li{position:relative;}
-#gnb>li>a{display: block;width: 220px;height: 50px;font: bold 18px/3 play;color: #222;box-sizing: border-box;padding-right: 20px;text-align: right;}
-#gnb>li.on>a{background: #111;color: #fff;}
-#gnb>li:hover>a{background: #616161;color: #fff;}
-#gnb em{display: inline-block;transform: skewX(40deg);}
-#gnb em i{margin-right: 20px;}
-
-/* 2depth */
-#gnb ul{
-  position: absolute; /* 자식의 position:absolute. grouping. */
-  left:0px;
-  top:0px;
-  opacity: 0; /* 안보이게 */ 
-  transition: 0.4s; /* 0.4초동안 animation효과 */
+header::after{
+  content:"";position:absolute;inset:0;padding:1px;border-radius:0;
+  background:conic-gradient(from 180deg,rgba(255,80,120,.55),rgba(110,40,255,.55),rgba(0,210,255,.55),rgba(255,80,120,.55));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  animation:auroraSpin 12s linear infinite; opacity:.45; pointer-events:none;
 }
-#gnb>li:hover ul{
-  opacity: 0.8; /* 보이게 */
-  left:205px; /* 왼쪽에서 오른쪽으로 205px이동 */
-} 
-#gnb ul a{display: block;width: 150px;height: 40px;background: #222;border-bottom: 1px solid #760c0c;font: bold 16px/2.5 arial;color:#fff;box-sizing: border-box;padding-left: 50px;margin-bottom: 3px;transition:0.5s;}
-#gnb ul a:hover{background:#760c0c;color:#333;}
-/* #gnb>li.on ul{opacity: 0.8; left:205px; top:-10px;}
-#gnb li.on ul a{background:#444; opacity: 0.7;} */
+@keyframes auroraSpin{to{transform:rotate(360deg)}}
 
-/* sns 버튼 */
-#sns{position: fixed;top:40px;right:20px;}
-#sns li{float:left;margin-right: 50px;}
-#sns .fa{
-  font-size: 36px;          /* 아이콘 크기 키움 */
-  color: #ffffff;           /* 조금 더 밝은 버건디색 (원하는 색으로 변경 가능) */
-  opacity: 0.85;            /* 기본 상태에서도 더 선명하게 */
-  transition: 0.3s ease;
-  text-shadow: 0 0 6px rgba(0,0,0,0.4); /* 살짝 그림자 → 선명도 강화 */
-  }
-  #sns .fa:hover{
-  opacity: 1;                     /* 완전 선명 */
-  transform: scale(1.3);           /* 커지면서 강조 */
-  color: #ff7575;                  /* hover 시 포인트 컬러 */
-  text-shadow: 0 0 12px rgba(0,0,0,0.6);
-  }
-  
-  #side .con p {
-  transform: translateX(200px);
-  transition: all 0.5s ease;
+/* GNB 위치/간격 */
+#gnb{
+  --item-h:52px; --rail-w:4px;
+  position:absolute; top:250px; left:6px; width:calc(100% - 12px); z-index:9;
+}
+#gnb>li{position:relative;margin:12px 8px;}
+
+/* 1depth 링크 (글래스 카드 + 네온 레일) */
+#gnb>li>a{
+  position:relative; display:flex; align-items:center; gap:10px;
+  height:var(--item-h); padding:0 16px 0 20px;
+  font:800 17px/1 "Arial",sans-serif; color:var(--txt-base); letter-spacing:.2px;
+
+  background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
+  border:1px solid var(--glass-inset); border-radius:12px; backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), var(--shadow-md);
+  transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
+}
+#gnb>li>a::before{
+  content:""; position:absolute; left:-6px; top:8px; bottom:8px; width:var(--rail-w); border-radius:8px;
+  background:var(--neon-rail-grad);
+  box-shadow:0 0 10px var(--neon-rail-glow-1), 0 0 18px var(--neon-rail-glow-2);
+  opacity:.85;
+}
+#gnb>li>a::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; background:var(--neon-sweep);
+  background-size:10% 100%; background-position:-20% 0; transition:background-position .6s ease;
+}
+#gnb>li>a:hover,#gnb>li.on>a{
+  transform:translateY(-2px); color:var(--txt-strong);
+  border-color:rgba(255,120,160,.45);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), 0 16px 28px rgba(255,40,90,.25), 0 6px 16px rgba(110,40,255,.18);
+}
+#gnb>li>a:hover::after,#gnb>li.on>a::after{background-position:130% 0;}
+#gnb>li>a i{font-size:18px; filter:drop-shadow(0 0 4px rgba(255,90,120,.6)); opacity:.9;}
+
+/* =========================
+   2depth (서브메뉴) - 메뉴바와 동일 톤/디자인
+   ========================= */
+#gnb>li>ul{
+  display:none; position:absolute; top:2px; left:calc(100% + 10px); width:240px; padding:12px;
+  /* 메뉴바와 같은 글래스 카드 배경 */
+  background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
+  border:1px solid var(--glass-brd);
+  border-radius:14px; backdrop-filter:blur(8px); box-shadow:var(--shadow-lg); z-index:9999;
+}
+/* 메인→서브 hover 브릿지 */
+#gnb>li::after{content:""; position:absolute; top:8px; left:100%; width:16px; height:calc(var(--item-h) - 16px);}
+#gnb>li:hover>ul,#gnb>li>ul:hover{display:block;}
+
+/* 서브메뉴 레일(상단에 얇게) */
+#gnb>li>ul::before{
+  content:""; position:absolute; left:10px; right:10px; top:10px; height:3px; border-radius:6px;
+  background:var(--neon-rail-grad);
+  box-shadow:0 0 10px var(--neon-rail-glow-1), 0 0 18px var(--neon-rail-glow-2);
+  opacity:.9;
 }
 
+/* 서브 아이템 (메뉴바 버튼 스타일 축소판) */
+#gnb>li>ul>li{margin:10px 2px;}
+#gnb>li>ul>li>a{
+  position:relative; display:flex; align-items:center; gap:10px;
+  height:42px; padding:0 16px 0 18px; border-radius:12px;
+  color:var(--txt-base); font:700 14px/1 "Arial",sans-serif;
 
+  background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
+  border:1px solid var(--glass-inset); backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 8px 18px rgba(0,0,0,.28);
+  transition:transform .18s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease, color .25s ease;
+}
+#gnb>li>ul>li>a::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; background:var(--neon-sweep);
+  background-size:10% 100%; background-position:-20% 0; transition:background-position .55s ease;
+}
+#gnb>li>ul>li>a:hover{
+  transform:translateY(-1px); color:var(--txt-strong);
+  border-color:rgba(255,120,160,.45);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08), 0 12px 22px rgba(255,40,90,.22);
+}
+#gnb>li>ul>li>a:hover::after{background-position:120% 0;}
 
+/* 접근성 포커스 */
+#gnb a:focus-visible{outline:2px solid #ffe86d; outline-offset:3px;}
+#gnb em{display:inline-block; text-shadow:0 0 6px rgba(255,230,240,.35);}
 
-/* 텍스트 박스 */
-.txtBox { width:340px; height:280px; position:fixed; top:200px; right:70px; }
-.txt { position:absolute; top:200px; right:0px; font-size:34px; font-family:play; color:#bbb; letter-spacing:-2px;}
-.txt b { font:bold 34px arial; color:#760c0c; 	margin-left:20px;}
-.tit { position:absolute; top:0px; right:0px; font-size:160px; color:#760c0c; font-family: 'Monoton', cursive; letter-spacing:-1px;}
-.tit em { font-size:50px; font-family:play; color:#fff;}
+/* ===== SNS ===== */
+#sns{position:fixed;top:40px;right:20px;}
+#sns li{float:left;margin-right:50px;}
+#sns .fa{font-size:36px;color:#fff;opacity:.85;transition:.3s ease;text-shadow:0 0 6px rgba(0,0,0,.4);}
+#sns .fa:hover{opacity:1;transform:scale(1.3);color:#fff;text-shadow:0 0 12px rgba(0,0,0,.6);}
 
-/* contents 레이아웃 */
-#side { width:800px; height:100%; position:fixed; bottom:0px; right:-800px; background:#111; opacity:0.5; transform:skewX(-30deg); transition:all 0.5s;}
+/* ===== 텍스트 박스 & V1 애니메이션 ===== */
+.txtBox{width:340px;height:280px;position:fixed;top:200px;right:70px;}
+.txt{position:absolute;top:200px;right:0;font-size:34px;font-family:play;color:#bbb;letter-spacing:-2px;}
+.txt b{font:bold 34px arial;color:#760c0c;margin-left:20px;}
+.tit{position:absolute;top:0;right:0;font-size:160px;color:#760c0c;font-family:'Monoton',cursive;letter-spacing:-1px;cursor:pointer;user-select:none;}
+.tit em{font-size:50px;font-family:play;color:#fff;}
+@keyframes pulseOnce{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
+.tit.pulse{animation:pulseOnce .45s ease-out;}
 
+/* =========================
+   오른쪽 컨텐츠 패널 (#side)
+   메뉴바와 같은 색/디자인으로 통일
+   ========================= */
+#side{
+  width:800px;height:100%; position:fixed; bottom:0; right:-800px; opacity:0;
+  /* 메뉴바와 동일한 글래스 배경 */
+  background:
+    radial-gradient(140% 120% at 100% 0%, rgba(110,40,255,.16) 0%, transparent 60%),
+    radial-gradient(120% 120% at 0% 100%, rgba(255,80,120,.16) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(20,16,24,.55), rgba(20,16,24,.45));
+  border-left:1px solid var(--glass-brd);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 50px rgba(255,50,80,.08) inset;
+
+  transition:right .5s ease, opacity .4s ease;
+  pointer-events:none; z-index:9000;
+}
+/* 패널 가장자리 네온 라인 */
+#side::before{
+  content:""; position:absolute; inset:0; padding:1px; border-radius:0;
+  background:conic-gradient(from 0deg, rgba(255,80,120,.45), rgba(110,40,255,.45), rgba(0,210,255,.45), rgba(255,80,120,.45));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.35; pointer-events:none;
+}
+#side.active{right:0; opacity:.96; pointer-events:auto;}
+
+#side .close-btn{
+  position:absolute; top:20px; right:20px;
+  background:none; border:none; font-size:32px; color:#fff; cursor:pointer; z-index:10000;
+}
+#side .close-btn:hover{color:#ff1744;}
+
+/* 컨텐츠 내부도 메뉴바 톤으로 */
 #side .con{
-  width:400px;
-  height: 100%;
-  position: absolute;
-  left:150px;
-  bottom: 0px;
-  background: #000;
-  box-sizing: border-box;
-  padding:10px;
-  transition: 1s;
+  position:absolute; left:0; right:0; margin:0 auto;
+  width:100%; max-width:700px; height:100%;
+  /* 내부 카드 느낌 */
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border-left:1px solid var(--glass-inset);
+  box-sizing:border-box; padding:40px 30px;
+  display:flex; flex-direction:column; gap:50px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 10px 26px rgba(0,0,0,.35);
 }
 
+/* 행 배치 */
+#side .con .content-row{display:flex; align-items:center; justify-content:space-between; gap:30px;}
+#side .con .content-row.alt{flex-direction:row-reverse;}
 
-/* contents 내 썸네일 */
-#side .con p{width:300px;height:100px;position: absolute;left: 60px;}
-#side .con p em{display: inline-block;font: bold 16px/1.7 arial;color:#760c0c;transform: skewX(30deg);}
-#side .con p img{width:300px;height:70px;opacity:0.3;transition:0.5s; transform: skewX(30deg);}
-#side .con p img:hover{opacity:1;}
-#side .con p:nth-child(1){bottom:270px;transform: translateX(200px);transition: all 0.4s;}
-#side .con p:nth-child(2){bottom:160px;transform: translateX(200px);transition: all 0.8s;}
-#side .con p:nth-child(3){bottom:50px;transform: translateX(200px);transition: all 1.2s;}
-/* #side:hover .con p{transform: translateX(0px);} */
+/* 링크형 썸네일 (메뉴바 톤 하이라이트) */
+#side .con .thumb{
+  display:block; width:400px; height:225px; /* 16:9 */
+  border:1px solid var(--glass-inset); border-radius:12px; overflow:hidden;
+  background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
+  position:relative; transition:transform .25s ease, box-shadow .25s ease; will-change:transform;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04), 0 8px 20px rgba(0,0,0,.35);
+}
+#side .con .thumb::before{
+  /* 상단 얇은 네온 라인 */
+  content:""; position:absolute; left:10px; right:10px; top:10px; height:3px; border-radius:6px;
+  background:var(--neon-rail-grad);
+  box-shadow:0 0 10px var(--neon-rail-glow-1), 0 0 18px var(--neon-rail-glow-2);
+  opacity:.85;
+}
+#side .con .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease, filter .35s ease;}
+#side .con .thumb:hover{transform:translateY(-4px); box-shadow:0 12px 26px rgba(0,0,0,.45);}
+#side .con .thumb:hover img{transform:scale(1.06); filter:brightness(1.05);}
+#side .con .content-row:hover .thumb{transform:translateY(-3px); box-shadow:0 10px 22px rgba(0,0,0,.38);}
+#side .con .content-row:hover .thumb img{transform:scale(1.04);}
+#side .con .thumb:focus-visible{outline:3px solid #ffe86d; outline-offset:4px; box-shadow:0 0 0 3px rgba(255,232,109,.35);}
 
-/* 애니메이션 아이콘 */
-#side .btnContents { width:150px; height:50px; position:absolute;  bottom:40px; left:100px; color:#760c0c;	transform:skewX(40deg); }
-#side:hover .btnContents { left:700px;}	
-.btnContents i { font-size:60px; position:absolute; bottom:0px; right:0px; opacity:0;}
-.btnContents i:nth-child(1){animation: ani linear 1.5s 0s infinite;}
-.btnContents i:nth-child(2){animation: ani linear 1.5s 0.5s infinite;}
-.btnContents i:nth-child(3){animation: ani linear 1.5s 1s infinite;}
+#side .con .label{flex:1; color:#ddd; font:600 18px/1.5 Arial,sans-serif; text-align:center;}
 
-/* 기본 상태: 오른쪽 패널은 숨김 위치 */
-#side { right: -800px; opacity: 0.5; }
-
-/* 기본: 썸네일도 오른쪽으로 밀어서 숨김 */
-#side .con p {
-  transform: translateX(200px);
-  transition: all 0.5s ease;
+/* 반응형 */
+@media (max-width:800px){
+  #side{width:100%; right:-100%;}
+  #side.active{right:0;}
+}
+@media (max-width:700px){
+  #side .con{max-width:520px; padding:28px 20px; gap:32px;}
+  #side .con .content-row, #side .con .content-row.alt{flex-direction:column; gap:16px;}
+  #side .con .thumb{width:100%; height:auto; aspect-ratio:16/9;}
+  #side .con .label{text-align:center;}
 }
 
-/* ✅ 핵심: 큰 V1(.txtBox .tit)에 hover한 동안에만 패널/썸네일 등장 */
-.txtBox:has(.tit:hover) ~ #side {
-  right: -500px;
-  opacity: 0.8;
-}
-.txtBox:has(.tit:hover) ~ #side .con {
-  left: 50px;
-}
-.txtBox:has(.tit:hover) ~ #side .con p {
-  transform: translateX(0) !important;
-}
+/* ===== 접근성 공통 ===== */
+#gnb a:focus-visible, #side .con .thumb:focus-visible{scroll-margin:80px;}

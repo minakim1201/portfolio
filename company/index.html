@@ -3,42 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>글로벌아이티</title>
-  <link rel="icon" href="img/favicon.png">
+  <title>글로벌아이티</title>  
+  <link rel="icon" href="img/favicon.png" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    .container{
-      padding-top: 150px;
-      padding-bottom: 80px;
-    }
-  
-    #myCarousel .carousel-inner .item{
-      height: 700px;
-    }
 
-  
-    #myCarousel .carousel-inner .item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; 
-    } 
-
-    #subject{
-      background: #eeeeee;
-    }
-
-    footer{
-      background-color: #727171;
-      color:#f5f5f5;
-      padding: 30px;
-    }
+  <link rel="stylesheet" href="css/style.css">
   </style>
 
   <script>
     $(document).ready(function(){
+      // tool tip
+      $('[data-toggle="tooltip"]').tooltip();  
+
       // Add smooth scrolling to all links in navbar + footer link
       $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
 
@@ -76,19 +55,20 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#">Logo</a>
+        <a class="navbar-brand" href="#"><img src="img/logo2.svg" style="width:100px;"></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#myPage">HOME</a></li>
-          <li><a href="#about">ABOUT</a></li>
-          <li><a href="#subject">SUBJECT</a></li>
-          <li><a href="#contact">CONTACT</a></li>          
+          <li><a href="#myPage" data-toggle="collapse" data-target=".navbar-collapse.in">HOME</a></li>
+          <li><a href="#about" data-toggle="collapse" data-target=".navbar-collapse.in">ABOUT</a></li>
+          <li><a href="#subject" data-toggle="collapse" data-target=".navbar-collapse.in">SUBJECT</a></li>
+          <li><a href="#contact" data-toggle="collapse" data-target=".navbar-collapse.in">CONTACT</a></li>          
         </ul>
       </div>
     </div>
   </nav>
   <!-- /Navigation -->
+
   <!-- 캐러셀 ------------------------------------------------------------------------------->
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -141,7 +121,7 @@
   <div id="about" class="container text-center">
     <h1>교육원 소개</h1>
     <p>글로벌 IT 인재개발원은</p>
-    <p>4차 산업혁명의 중심에 있습니다</p>   
+    <p>4차 산업혁명의 중심에 있습니다</p>       
   </div>
   <!-- /교육원 소개 -->
 
@@ -155,7 +135,7 @@
         <div class="col-sm-4">
           <div class="thumbnail">
             <img src="img/pic01.jpg" alt="교육과정이미지">
-            <p><strong>풀스택 프레임워크(자바,스프링)기반 데이터 융합SW개발자 과정</strong></p>
+            <p><strong>풀스택 프레임워크(자바,스프링)기반<br> 데이터 융합SW개발자 과정</strong></p>
             <p>K-Digital Training</p>
             <button class="btn">more</button>
           </div>
@@ -163,7 +143,7 @@
         <div class="col-sm-4">
           <div class="thumbnail">
             <img src="img/pic02.jpg" alt="교육과정이미지">
-            <p><strong>산업프로젝트 기반 인공지능 빅데이터 분석가 과정</strong></p>
+            <p><strong>산업프로젝트 기반 인공지능<br> 빅데이터 분석가 과정</strong></p>
             <p>K-Digital Training</p>
             <button class="btn">more</button>
           </div>
@@ -171,7 +151,7 @@
         <div class="col-sm-4">
           <div class="thumbnail">
             <img src="img/pic03.jpg" alt="교육과정이미지">
-            <p><strong>데브옵스MSA컨테이너 기반 클라우드 네이티브 엔지니어 전문가 과정</strong></p>
+            <p><strong>데브옵스MSA컨테이너 기반<br> 클라우드 네이티브 엔지니어 전문가 과정</strong></p>
             <p>K-Digital Training</p>
             <button class="btn">more</button>
           </div>
@@ -201,39 +181,55 @@
         <textarea class="form-control" name="comments" placeholder="Comment" rows="5"></textarea>
       </div>
     </div>
-    
   </div>
   <!-- /Contact -->
-  <!-- 카카오맵 ----------------------------------------------->
-  <div id="kakaomap" style="width: 100%;height: 500px;"></div>
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cdac8d34ddc7952be2fdac1223ed4dc6"></script>
-        <script> 
-            var mapContainer = document.getElementById('kakaomap'), // 지도를 표시할 div 
-             mapOption = { 
-                    center: new daum.maps.LatLng(37.4809094, 126.9520957), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
-                };
 
-            var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+  <!-- Map ---------------------------------------------------------------------------------------------------->
+  <div id="map" style="width:100%;height:500px;"></div>
 
-            // 마커가 표시될 위치입니다 
-            var markerPosition  = new daum.maps.LatLng(37.4809094, 126.9520957); 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2f0bb35932325e9049074ab790afaa8f"></script>
+  <script>
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+      mapOption = { 
+          center: new kakao.maps.LatLng(37.4809094, 126.9520957), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+      };
 
-            // 마커를 생성합니다
-            var marker = new daum.maps.Marker({
-                position: markerPosition
-            });
+  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-            // 마커가 지도 위에 표시되도록 설정합니다
-            marker.setMap(map);
-        </script>
-        <!-- 카카오맵.끝.-->
-        <!-- footer ----------------------------------------------->
-        <footer class="text-center">
-          <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="to top"></a>
-          <span class="glyphicon glyphicon-chevron-up"></span>
-          <div> &copy; 글로벌아이티 ALL rights reserved</div>
-        </footer>
-        <!--footer-->
+  // 마커가 표시될 위치입니다 
+  var markerPosition  = new kakao.maps.LatLng(37.4809094, 126.9520957); 
+
+  // 마커를 생성합니다
+  var marker = new kakao.maps.Marker({
+      position: markerPosition
+  });
+
+  // 마커가 지도 위에 표시되도록 설정합니다
+  marker.setMap(map);
+
+  // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+  // marker.setMap(null);    
+  </script>
+  
+  
+  <!-- /map -->
+
+  <!-- footer ---------------------------------------------------------------------------------------------------------->
+  <footer class="text-center">
+    <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="to top">
+      <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
+    <div>
+      &copy;글로벌아이티 All rights reserved.
+    </div>
+  </footer>
+  <!-- /footer -->
+
+
+
+
+
+
 </body>
 </html>

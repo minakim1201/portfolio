@@ -18,7 +18,7 @@
   <!-- 로고 -->
   <h1><img src="img/logo.png" alt="Kiwoom Heroes 로고"/></h1>
 
-  <!-- 왼쪽 패널 + GNB -->
+  <!-- 왼쪽 사이드바 메뉴 -->
   <header>
     <ul id="gnb">
       <li class="on">
@@ -72,59 +72,72 @@
     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
   </ul>
 
-  <!-- 텍스트 박스 / V1 트리거 -->
+  <!-- 텍스트 박스 & SVG 트리거 버튼 -->
   <section class="txtBox">
     <p class="txt">Click me!</p>
-    <p class="tit" id="v1Trigger">V1</p>
+    <button class="img-trigger" id="openPanelBtn" aria-label="사이드 패널 열기">
+      <img src="img/img.svg" alt="메뉴 열기 아이콘">
+    </button>
   </section>
 
-  <!-- 오른쪽 컨텐츠 박스 (기본 숨김, 클릭 시 노출) -->
+  <!-- 오른쪽 컨텐츠 패널 -->
   <section id="side" aria-hidden="true">
     <button class="close-btn" aria-label="닫기">×</button>
     <div class="con">
       <!-- Row 1 -->
       <div class="content-row">
-        <a class="thumb" href="https://example.com/video1" target="_blank" rel="noopener">
+        <a class="thumb" href="https://www.youtube.com/embed/L2RlKSdtURU?si=8xyxH7EOtDxh2Oyb" target="_blank" rel="noopener">
           <img src="img/pic1.jpg" alt="img1">
         </a>
-        <p class="label">New video!</p>
+        <p class="label"><br>[히어로캠🎥]<br><br>이게 바로 히어로즈잖아🔥 김태진 만루 홈런 + 최주환 역전 적시타</p>
       </div>
 
       <!-- Row 2 -->
       <div class="content-row alt">
-        <p class="label">new video@</p>
-        <a class="thumb" href="https://example.com/video2" target="_blank" rel="noopener">
+        <p class="label"><br>THANK YOU 웰스💫<br><br>8주간의 생활을 마친 웰스 송별회 영상!</p>
+        <a class="thumb" href="https://www.youtube.com/embed/GrAsp5nyT_E?si=L9SdYUiWw2r_haJm" target="_blank" rel="noopener">
           <img src="img/pic2.jpg" alt="img2">
         </a>
       </div>
 
       <!-- Row 3 -->
       <div class="content-row">
-        <a class="thumb" href="https://example.com/description" target="_blank" rel="noopener">
+        <a class="thumb" href="https://www.youtube.com/embed/hz8IQnV8Dlw?si=I2ntoGjZ1mLjRGGi" target="_blank" rel="noopener">
           <img src="img/pic3.jpg" alt="img3">
         </a>
-        <p class="label">describe</p>
+        <p class="label"><br>🚨출시임박🚨<br><br>하영민, 송성문<br> 플레이어 유니폼</p>
       </div>
     </div>
   </section>
 
-  <!-- 간단 JS: V1 클릭 → 사이드 열기 / 닫기 버튼 → 닫기 -->
+  <!-- JS -->
   <script>
     document.addEventListener("DOMContentLoaded", function(){
-      const v1 = document.getElementById("v1Trigger");
+      const openBtn = document.getElementById("openPanelBtn");
       const side = document.getElementById("side");
       const closeBtn = side.querySelector(".close-btn");
 
-      v1.addEventListener("click", () => {
-        v1.classList.add("pulse");
+      function openSide(){
+        openBtn.classList.add("pulse");
         side.classList.add("active");
-        side.setAttribute("aria-hidden", "false");
-        setTimeout(()=> v1.classList.remove("pulse"), 500);
-      });
-
-      closeBtn.addEventListener("click", () => {
+        side.setAttribute("aria-hidden","false");
+        setTimeout(()=>openBtn.classList.remove("pulse"), 450);
+      }
+      function closeSide(){
         side.classList.remove("active");
-        side.setAttribute("aria-hidden", "true");
+        side.setAttribute("aria-hidden","true");
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener("click", openSide);
+      closeBtn.addEventListener("click", closeSide);
+
+      // 키보드 접근성
+      openBtn.addEventListener("keydown", e=>{
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openSide(); }
+      });
+      document.addEventListener("keydown", e=>{
+        if(e.key==="Escape") closeSide();
       });
     });
   </script>

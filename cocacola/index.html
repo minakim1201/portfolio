@@ -1,419 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한국 코카-콜라</title>
-  <link rel="icon" href="img/favicon.png">
-  
-  <!-- bootstrap ----------------------------------------------------------------------------------------->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- /bootstrap -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kiwoom Heroes</title>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- 배경 동영상 -->
+  <figure class="vid">
+    <video loop autoplay muted>
+      <source src="img/heros.mp4" type="video/mp4"/>
+    </video>
+  </figure>
 
-  <!-- slick slider ---------------------------------------------------------------------------------------->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-  <!-- /slick slider -->
+  <!-- 로고 -->
+  <h1><img src="img/logo.png" alt="Kiwoom Heroes 로고"/></h1>
 
-  <!-- fontawesom ------------------------------------------------------------------------------------------------------->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- 왼쪽 사이드바 메뉴 -->
+  <header>
+    <ul id="gnb">
+      <li class="on">
+        <a href="#"><em><i class="fa fa-refresh fa-spin"></i> About Heroes</em></a>
+        <ul>
+          <li><a href="#"><em>구단소개</em></a></li>
+          <li><a href="#"><em>구단 파트너</em></a></li>
+          <li><a href="#"><em>구장 안내</em></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><em>PLAYERS</em></a>
+        <ul>
+          <li><a href="#"><em>투수</em></a></li>
+          <li><a href="#"><em>포수</em></a></li>
+          <li><a href="#"><em>내야수</em></a></li>
+          <li><a href="#"><em>외야수</em></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><em>GAMES</em></a>
+        <ul>
+          <li><a href="#"><em>경기일정 및 결과</em></a></li>
+          <li><a href="#"><em>선수 등록 현황</em></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><em>STATS</em></a>
+        <ul>
+          <li><a href="#"><em>팀 순위</em></a></li>
+          <li><a href="#"><em>투수 성적</em></a></li>
+          <li><a href="#"><em>타자 성적</em></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><em>TICKET</em></a>
+        <ul>
+          <li><a href="#"><em>연간회원</em></a></li>
+          <li><a href="#"><em>멤버십</em></a></li>
+          <li><a href="#"><em>단체관람</em></a></li>
+          <li><a href="#"><em>스카이박스</em></a></li>
+        </ul>
+      </li>
+    </ul>
+  </header>
 
-  <style>
-    .navbar{
-      background: white;
-      padding: 0 !important;
-      margin: 0 !important;
-      height: 70px !important;
-    }
-    body{background: #eeeeee;}
+  <!-- SNS -->
+  <ul id="sns">
+    <li><a href="https://www.instagram.com/heroesbaseballclub/"><i class="fa fa-instagram"></i></a></li>
+    <li><a href="https://www.youtube.com/@heroesbaseballclub"><i class="fa fa-youtube"></i></a></li>
+    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+  </ul>
 
-    #collapsibleNavbar .dropdown-toggle:hover+.dropdown-menu {
-      display: block;
-    }
+  <!-- 텍스트 박스 & SVG 트리거 버튼 -->
+  <section class="txtBox">
+    <p class="txt">Click me!</p>
+    <button class="img-trigger" id="openPanelBtn" aria-label="사이드 패널 열기">
+      <img src="img/img.svg" alt="메뉴 열기 아이콘">
+    </button>
+  </section>
 
+  <!-- 오른쪽 컨텐츠 패널 -->
+  <section id="side" aria-hidden="true">
+    <button class="close-btn" aria-label="닫기">×</button>
+    <div class="con">
+      <!-- Row 1 -->
+      <div class="content-row">
+        <a class="thumb" href="https://www.youtube.com/embed/L2RlKSdtURU?si=8xyxH7EOtDxh2Oyb" target="_blank" rel="noopener">
+          <img src="img/pic1.jpg" alt="img1">
+        </a>
+        <p class="label"><br>[히어로캠🎥]<br><br>이게 바로 히어로즈잖아🔥 김태진 만루 홈런 + 최주환 역전 적시타</p>
+      </div>
 
-    .slider-pc{display: block !important;}  
-    .slider-m{display: none !important;}  
-    
-    .slider-container { 
-      max-width: 1500px;
-      height: 570px !important;
-      margin: 50px auto;
-    }
+      <!-- Row 2 -->
+      <div class="content-row alt">
+        <p class="label"><br>THANK YOU 웰스💫<br><br>8주간의 생활을 마친 웰스 송별회 영상!</p>
+        <a class="thumb" href="https://www.youtube.com/embed/GrAsp5nyT_E?si=L9SdYUiWw2r_haJm" target="_blank" rel="noopener">
+          <img src="img/pic2.jpg" alt="img2">
+        </a>
+      </div>
 
-    .slide{
-      position: relative; /* 부모의 position 설정 */
-    }
+      <!-- Row 3 -->
+      <div class="content-row">
+        <a class="thumb" href="https://www.youtube.com/embed/hz8IQnV8Dlw?si=I2ntoGjZ1mLjRGGi" target="_blank" rel="noopener">
+          <img src="img/pic3.jpg" alt="img3">
+        </a>
+        <p class="label"><br>🚨출시임박🚨<br><br>하영민, 송성문<br> 플레이어 유니폼</p>
+      </div>
+    </div>
+  </section>
 
-    .slide .caption, 
-    .slide .more{
-      position: absolute; /* 자식 position:absolute 설정. grouping */
-    }
-    .slide .caption{
-      left: 5px;
-      top:200px;
-    }
-    .slide .more{
-      left: 5px;
-      top:300px;
-    }
+  <!-- JS -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const openBtn = document.getElementById("openPanelBtn");
+      const side = document.getElementById("side");
+      const closeBtn = side.querySelector(".close-btn");
 
-    .slider .slide {
-      margin: 0 10px; /* 슬라이드 간 간격 */
-    }
-    
-    .slider .slide img {
-      width: 100%;
-      height: 570px;
-      border-radius: 10px;
-    }
+      function openSide(){
+        openBtn.classList.add("pulse");
+        side.classList.add("active");
+        side.setAttribute("aria-hidden","false");
+        setTimeout(()=>openBtn.classList.remove("pulse"), 450);
+      }
+      function closeSide(){
+        side.classList.remove("active");
+        side.setAttribute("aria-hidden","true");
+        openBtn.focus();
+      }
 
-    .slider .slide .btn{
-      background-color: white;
-      color: black;
-      font-weight: bold;
-      padding-left: 50px;
-      padding-right: 50px;
-      border:none;
-      border-radius: 50px;
-    }
+      openBtn.addEventListener("click", openSide);
+      closeBtn.addEventListener("click", closeSide);
 
-    .thumbnail{
-      border-radius: 10px !important;
-      background: white;
-    }
-    .thumbnail img{
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-      width: 100%;
-      height: 300px;
-    }
-
-    #story .col-md-6 img,
-    #tomorrow .col-md-6 img{
-      width:100%;
-      height: 100%;
-    }
-
-    .container{
-      padding-top: 50px;
-      padding-bottom: 50px;      
-    }
-
-    #story{
-      background: blue;
-      /* position: relative; */
-    }
-
-    #story .col-md-6,
-    #tomorrow .col-md-6
-    {
-      border-radius: 10px !important;
-      background: white;
-      /* position: absolute; */
-    }
-    #story .col-md-6 img,
-    #tomorrow .col-md-6 img
-    {
-      border-radius: 10px;
-    }
-
-    #story .col-md-6:nth-child(1){
-      /* top:0 !important;
-      left: 0 !important; */
-      z-index: 99999;     
-    }
-    #story .col-md-6:nth-child(2){
-      /* top:100px !important;
-      left:600px !important; */     
-    }
-
-    #brand .col-md-4{
-      background: white;
-      box-sizing: border-box;
-      border:10px solid #eeeeee;
-      transition: 0.5s;
-    }
-
-    #brand .col-md-4 img{
-      width: 100%;      
-    }
-
-    #brand .col-md-4:hover{
-      transform: scale(1.05);
-    }
-
-    footer.container-fluid{
-      background: black;
-    } 
-    
-  @media screen and (max-width:767px) {
-    .slide{ text-align: center !important;}
-    .slider .slide img {
-      width: 100%;
-      height: 700px;
-      border-radius: 10px;
-    }
-    
-    .slider-pc{display: none !important;}  
-    .slider-m{display: block !important;}   
-    
-    .slide .caption,
-    .slide .more{      
-      width: 100%;
-      
-    }
-    .slide .caption{     
-      top: 550px !important;
-    }
-    .slide .more{     
-      top: 650px !important;     
-    }
-  }
-
-  </style>
-
-   <script>
-    $(document).ready(function(){
-      $('.slider').slick({
-        centerMode: true,
-        centerPadding: '80px', // 양쪽에 보이는 슬라이드 넓이
-        slidesToShow: 1,
-        arrows: false,
-        dots: true,
-        responsive: [
-          {
-            breakpoint: 768,
-            settings: {
-              centerPadding: '40px',
-            }
-          }
-        ]
+      // 키보드 접근성
+      openBtn.addEventListener("keydown", e=>{
+        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openSide(); }
+      });
+      document.addEventListener("keydown", e=>{
+        if(e.key==="Escape") closeSide();
       });
     });
   </script>
-</head>
-<body>
-  <!-- navigation ------------------------------------------------------------------------------------->
-  <nav class="navbar navbar-expand-sm">
-    <div class="container">
-      <a class="navbar-brand" href="#"><img src="img/Coke-company-logo-black.svg" alt="coca-cola logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Brands</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Our Company</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Coca-Cola Company</a></li>
-              <li><a class="dropdown-item" href="#">Since 1886</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Discover</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Brand Story</a></li>
-              <li><a class="dropdown-item" href="#">Coke & Meal</a></li>
-              <li><a class="dropdown-item" href="#">Originals</a></li>
-              <li><a class="dropdown-item" href="#">Opener</a></li>
-              <li><a class="dropdown-item" href="#">Creations</a></li>
-              <li><a class="dropdown-item" href="#">CokePLAY App</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Sustainability</a>
-          </li>          
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- /navigation -->
-   
-  <!-- slider ------------------------------------------------------------------------------------->
-  <div class="slider-container">
-    <div class="slider">
-      <div class="slide">
-        <img class="slider-pc" src="img/slider01.webp" alt="new coca cola">
-        <img class="slider-m" src="img/slider01_m.webp" alt="new coca cola">
-        <div class="caption">
-          <h3>코카-콜라와 뷔,<br>이토록 짜릿한 만남!</h3>
-          <p>뷔, 코카-콜라 앰배서더 발탁</p>
-        </div>
-        <div class="more">
-          <a class="btn btn-primary" href="#">자세히 보기</a>
-        </div>
-      
-      </div>
-      <div class="slide">
-        <img class="slider-pc" src="img/slider02.webp" alt="신흥시장">
-        <img class="slider-m" src="img/slider02_m.webp" alt="신흥시장">
-      </div>
-      <div class="slide">
-        <img class="slider-pc" src="img/slider03.webp" alt="나의 미식 파트너">
-        <img class="slider-m" src="img/slider03_m.webp" alt="나의 미식 파트너">
-      </div>
-      <div class="slide">
-        <img class="slider-pc" src="img/slider04.webp" alt="코카-콜라 X 신흥시장">
-        <img class="slider-m" src="img/slider04_m.webp" alt="코카-콜라 X 신흥시장">
-      </div>
-      <div class="slide">
-        <img class="slider-pc" src="img/slider05.webp" alt="코카-콜라 X 블루리본 서베이">
-        <img class="slider-m" src="img/slider05_m.webp" alt="코카-콜라 X 블루리본 서베이">
-      </div>
-    </div>
-  </div>
-  <!-- /slider -->
-
-  <!-- 이달의 PICK ----------------------------------------------------------------------------->
-  <div id="pick" class="container">
-    <h1>이달의 PICK</h1>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="thumbnail">
-          <img src="img/pic01.png" alt="닥터페퍼제로">
-          <p><strong>달콤하고 부드러운 딸기크림향, 그런데 닥터페퍼 제로라니</strong></p>          
-          <button class="btn">더 보기 <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="thumbnail">
-          <img src="img/pic02.png" alt="스프라이트제로">
-          <p><strong>달콤하고 부드러운 딸기크림향, 그런데 닥터페퍼 제로라니</strong></p>          
-          <button class="btn">더 보기 <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="thumbnail">
-          <img src="img/pic03.png" alt="파이웨이드제로">
-          <p><strong>달콤하고 부드러운 딸기크림향, 그런데 닥터페퍼 제로라니</strong></p>          
-          <button class="btn">더 보기 <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <!-- /이달의 PICK -->
-
-  <!-- story ------------------------------------------------------------------------------------>
-  <div id="story" class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h3>코카-콜라 Real Magic 스토리</h3>
-        <div>
-          1886년 탄생 이후, 코카-콜라가 걸어온 130여 년의 짜릿한 여정! 그 마법같은 이야기 속으로 초대합니다.
-        </div>
-        <div>
-          <a class="btn btn-outline-dark" href="#">자세히 보기</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div>
-          <img src="img/story01.webp" alt="coca-cola">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /story -->
-
-  <!-- tomorrow ------------------------------------------------------------------------------------>
-  <div id="tomorrow" class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div>
-          <img src="img/tomorrow01.webp" alt="coca-cola">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <h3>지속 가능한 미래</h3>
-        <div>
-          지속 가능한 미래를 만들기 위한 코카-콜라의 다양한 활동들을 만나보세요. 전 세계 사람들의 삶과 지역사회에 긍정적인 변화를 만들어 나가기 위해 노력하고 있습니다.
-        </div>
-        <div>
-          <a class="btn btn-outline-dark" href="#">자세히 보기</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /story -->
-
-  <!-- 브랜드 살펴보기 ------------------------------------------------------------------------------>
-  <div id="brand" class="container">
-    <h1>브랜드 살펴보기</h1>
-    <div class="row">
-      <div class="col-md-4">
-        <img src="img/brand01.webp" alt="cocal cola">
-      </div>
-      <div class="col-md-4">
-        <img src="img/brand02.webp" alt="sprite">
-      </div>
-      <div class="col-md-4">
-        <img src="img/brand03.webp" alt="fanta">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <img src="img/brand04.webp" alt="dr peppre">
-      </div>
-      <div class="col-md-4">
-        <img src="img/brand05.webp" alt="powerade">
-      </div>
-      <div class="col-md-4">
-        <img src="img/brand06.webp" alt="georgia coffe">
-      </div>
-    </div>
-
-    <a class="btn btn-outline-dark" href="#">모두 보기</a>
-  </div>
-  <!-- /브랜드 살펴보기 -->
-
-  <!-- footer -------------------------------------------------------------------------------------->
-  <footer class="container-fluid">
-    <div class="container">
-      <img src="img/logo-white-large.svg" alt="coca-cola logo">
-      <hr style="border:1px solid white">
-      <div class="row">
-        <div class="col-md-2">
-          <h6>소개</h6>
-          <ul>
-            <li>기업 소개</li>
-            <li>히스토리</li>
-            <li>채용</li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h6>도움이 필요하세요?</h6>
-          <ul>
-            <li>사이트 맵</li>
-            <li>고객 안내</li>
-          </ul>          
-        </div> 
-        <div class="col-md-6">
-          <h6>법적고지</h6>
-          <ul>
-            <li>이용 약관</li>
-            <li>쿠키 정책</li>
-            <li>쿠키 설정</li>
-          </ul> 
-        </div>
-        <div class="col-md-2">
-          <i class="fa-brands fa-youtube"></i>
-          <i class="fa-brands fa-x-twitter"></i>
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-facebook"></i>
-        </div>
-      </div>
-      <hr style="border: 1px solid white;">
-      © 2024 The Coca‑Cola Company. 판권 소유
-    </div>
-  </footer> 
-  <!-- /footer -->
-  
 </body>
 </html>

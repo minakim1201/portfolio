@@ -18,7 +18,6 @@
   --neon-rail-grad: linear-gradient(180deg, #ff4d7a, #7b5cff);
   --neon-rail-glow-1: rgba(255,77,122,.8);
   --neon-rail-glow-2: rgba(123,92,255,.7);
-  --neon-sweep: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.25) 8%, transparent 14%) no-repeat;
 
   --txt-strong:#fffef8;
   --txt-base:#f3f3f3;
@@ -56,7 +55,7 @@ h1 img:hover{transform:scale(1.05) rotate(-1deg);filter:drop-shadow(0 10px 18px 
    AURORA NEON SIDEBAR
    ========================= */
 header{
-  width:300px;height:100%; position:fixed;
+  width:300px;height:100%; position:fixed; left:0; top:0;
   background:
     radial-gradient(120% 100% at 10% 0%, rgba(255,90,120,.18) 0%, transparent 60%),
     radial-gradient(120% 100% at 100% 100%, rgba(110,40,255,.18) 0%, transparent 60%),
@@ -105,16 +104,11 @@ header::after{
 #gnb>li>ul{
   display:none; 
   position:absolute; 
-  top:0;                     /* gap 줄임 */
-  left:100%;                 /* 붙임 */
-  margin-left:6px;           /* 필요시 조절 */
-  width:240px; 
-  padding:12px;
+  top:0; left:100%; margin-left:6px;
+  width:240px; padding:12px;
   background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
-  border:1px solid var(--glass-brd); 
-  border-radius:14px; 
-  backdrop-filter:blur(8px); 
-  box-shadow:var(--shadow-lg);
+  border:1px solid var(--glass-brd); border-radius:14px; 
+  backdrop-filter:blur(8px); box-shadow:var(--shadow-lg);
   z-index:2;
 }
 #gnb>li:hover>ul{display:block;}
@@ -139,7 +133,7 @@ header::after{
   position:absolute;
   top:0;
   left:100%;
-  width:14px;     /* hover 유지 폭 */
+  width:14px;
   height:100%;
   background:transparent;
   pointer-events:auto;
@@ -154,35 +148,27 @@ header::after{
 
 /* 텍스트 박스 */
 .txtBox{width:340px;height:280px;position:fixed;top:250px;right:100px;}
-
-/* ==== Click me! (정적 네온 텍스트) ==== */
 .txt{
   position:absolute;top:280px;right:35px;
   font:900 42px/1.1 "Play", system-ui, -apple-system, sans-serif;
   letter-spacing:.02em;
   background:var(--neon-rail-grad);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+  -webkit-background-clip:text; background-clip:text; color:transparent;
   -webkit-text-stroke:.8px rgba(255,255,255,.55);
   text-shadow:
     0 0 0.5px rgba(255,255,255,.9),
     0 2px 6px rgba(0,0,0,.45),
     0 0 10px rgba(255,77,122,.55),
     0 0 16px rgba(123,92,255,.45);
-  padding:.2em .35em;
-  border-radius:10px;
-  isolation:isolate;
-  transform:none;
-  transition:none;
+  padding:.2em .35em; border-radius:10px;
+  isolation:isolate; transform:none; transition:none;
   filter:drop-shadow(0 10px 20px rgba(0,0,0,.25));
 }
 
-/* SVG 이미지 트리거 버튼 */
+/* SVG 트리거 버튼(데스크톱) */
 .img-trigger{
   position:absolute; top:0; right:0;
-  background:none; border:none; border-radius:0; padding:0;
-  cursor:pointer;
+  background:none; border:none; border-radius:0; padding:0; cursor:pointer;
 }
 .img-trigger img{
   width:256px; height:256px; display:block;
@@ -190,8 +176,10 @@ header::after{
   transition:.25s;
 }
 .img-trigger:hover img{transform:scale(1.06);}
+.pulse{animation:pulse .45s ease;}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(.96)}100%{transform:scale(1)}}
 
-/* 오른쪽 패널 */
+/* 오른쪽 패널 (데스크톱 기본) */
 #side{
   width:800px;height:100%; position:fixed; bottom:0; right:-800px; opacity:0;
   background:linear-gradient(180deg, rgba(20,16,24,.55), rgba(20,16,24,.45));
@@ -207,31 +195,144 @@ header::after{
   padding:40px 30px; display:flex; flex-direction:column; gap:50px;}
 #side .content-row{display:flex; justify-content:space-between; gap:30px;}
 #side .content-row.alt{flex-direction:row-reverse;}
-
-/* ==== 썸네일 (박스 전체 확대) ==== */
 #side .thumb{
   width:400px; height:225px;
   border:1px solid var(--glass-inset);
-  border-radius:12px;
-  overflow:hidden;
-  position:relative;
+  border-radius:12px; overflow:hidden; position:relative;
   transform:translateZ(0);
   transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
   will-change:transform;
 }
-#side .thumb img{
-  width:100%; height:100%; object-fit:cover;
-}
-#side .thumb:hover,
-#side .thumb:focus-visible{
+#side .thumb img{width:100%; height:100%; object-fit:cover;}
+#side .thumb:hover,#side .thumb:focus-visible{
   transform: translateY(-2px) scale(1.06);
   box-shadow:0 14px 28px rgba(0,0,0,.35);
   border-color:rgba(255,120,160,.45);
 }
+#side .label{flex:1;color:#ddd;font:600 18px Arial,sans-serif;text-align:center;}
 
-#side .label{
-  flex:1;
-  color:#ddd;
-  font:600 18px Arial,sans-serif;
-  text-align:center;
+/* =========================================================
+   ⛳ 햄버거: 기본(데스크톱) 숨김
+   ========================================================= */
+.burger{ 
+  display:none !important;
+  position:absolute; top:12px; right:12px;
+  width:42px; height:42px; align-items:center; justify-content:center;
+  border:1px solid rgba(255,255,255,.15); border-radius:10px;
+  background:linear-gradient(180deg,var(--glass-bg-1),var(--glass-bg-2));
+  color:#fff; cursor:pointer; z-index:9999;
+}
+.burger .fa{font-size:20px;}
+
+/* =========================================================
+   📱 모바일 전용
+   - 로고 숨김
+   - 메뉴만 햄버거
+   - Click me! 살짝 확대 애니메이션
+   - 사이드패널 풀스크린 + 카드 정렬(이미지 위/설명 아래)
+   - SNS 아이콘 더 진하게 + 하단
+   ========================================================= */
+@media (max-width: 768px){
+  /* 로고 숨김 */
+  h1{ display:none; }
+
+  /* 헤더 탑바 + 햄버거 */
+  header{
+    width:100%; height:60px; left:0; top:0;
+    border-right:none; border-bottom:1px solid rgba(255,255,255,.06);
+    z-index:8000;
+  }
+  .burger{ display:inline-flex !important; }
+
+  /* GNB 오프캔버스 (닫힘: 완전 비가시) */
+  #gnb{
+    position:fixed; top:60px; left:0; right:0;
+    max-height:calc(100dvh - 60px); overflow:auto;
+    background:rgba(10,10,14,.9); padding:12px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transform:translateY(-8px);
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:8000;
+  }
+  #gnb.open{ opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0); }
+  #gnb>li{ margin:8px 4px; }
+  #gnb>li>a{ min-height:48px; }
+
+  /* 서브메뉴 아코디언 */
+  #gnb>li>ul{
+    position:static; display:none; width:100%;
+    margin:8px 0 0 0; padding:10px; border-radius:12px;
+  }
+  #gnb>li.expanded>ul{ display:block; }
+
+  /* 모바일: img.svg 숨김, Click me! 트리거 + 애니메이션 */
+  .img-trigger{ display:none !important; }
+  .txt{
+    cursor:pointer;
+    display:inline-block;
+    transform-origin:center;
+    animation: mobilePulse 1.6s ease-in-out infinite;
+  }
+  @keyframes mobilePulse{
+    0%{ transform:scale(1); }
+    50%{ transform:scale(1.04); }
+    100%{ transform:scale(1); }
+  }
+
+  /* SNS 더 진하게 + 하단 */
+  #sns{ top:auto; bottom:12px; right:12px; }
+  #sns .fa{
+    opacity:1;
+    text-shadow:0 0 10px rgba(0,0,0,.65);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.6));
+  }
+
+  /* ===== 사이드패널: 풀스크린 & 카드 스택 ===== */
+  #side{
+    width:100vw; right:-100vw;  /* 화면 전체 */
+    opacity:0;
+  }
+  #side.active{ right:0; opacity:.98; }
+
+  #side .close-btn{ top:14px; right:14px; font-size:30px; }
+
+  #side .con{
+    left:0; right:0; max-width:none; height:100%;
+    padding:64px 16px 20px;      /* 상단 여백 + 좌우 16px */
+    gap:32px;                    /* 카드 사이 간격 넉넉히 */
+  }
+
+  /* 모든 행 동일: 이미지 위, 설명 아래 */
+  #side .content-row,
+  #side .content-row.alt{
+    flex-direction:column !important;
+    align-items:stretch;
+    gap:12px;                    /* 이미지/설명 간 간격 */
+  }
+
+  #side .thumb{
+    order:0;
+    width:100%;
+    height:48vw;                 /* 화면 폭 기준 비율 */
+    max-height:260px;            /* 과도 확대 방지 */
+    border-radius:14px;
+  }
+  #side .label{
+    order:1;
+    margin:0;
+    padding:0 4px;
+    font:600 16px/1.55 Arial,sans-serif;
+    text-align:center;
+    color:#eee;
+  }
+}
+
+/* 데스크톱 복귀 가드 */
+@media (min-width: 769px){
+  #gnb{ position:absolute; transform:none !important; opacity:1; visibility:visible; pointer-events:auto; }
+}
+
+/* 모션 최소화 */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{animation:none !important; transition:none !important}
 }

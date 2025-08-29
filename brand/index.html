@@ -18,8 +18,13 @@
   <!-- 로고 -->
   <h1><img src="img/logo.png" alt="Kiwoom Heroes 로고"/></h1>
 
-  <!-- 왼쪽 사이드바 메뉴 -->
+  <!-- 왼쪽 사이드바(데스크톱) / 상단 탑바 + 햄버거(모바일) -->
   <header>
+    <!-- 모바일에서만 보일 햄버거 버튼 -->
+    <button class="burger" id="burgerBtn" aria-controls="gnb" aria-expanded="false" aria-label="메뉴 열기">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+
     <ul id="gnb">
       <li class="on">
         <a href="#"><em><i class="fa fa-refresh fa-spin"></i> About Heroes</em></a>
@@ -72,9 +77,12 @@
     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
   </ul>
 
-  <!-- 텍스트 박스 & SVG 트리거 버튼 -->
+  <!-- 텍스트 박스 & (데스크톱 전용) SVG 트리거 버튼 -->
   <section class="txtBox">
-    <p class="txt">Click me!</p>
+    <!-- 모바일에선 이 텍스트가 사이드패널 오픈 트리거 -->
+    <p class="txt" id="mobileSideTrigger" role="button" tabindex="0" aria-label="사이드 패널 열기">Click me!</p>
+
+    <!-- 데스크톱에서만 보일 아이콘 버튼 -->
     <button class="img-trigger" id="openPanelBtn" aria-label="사이드 패널 열기">
       <img src="img/img.svg" alt="메뉴 열기 아이콘">
     </button>
@@ -84,23 +92,18 @@
   <section id="side" aria-hidden="true">
     <button class="close-btn" aria-label="닫기">×</button>
     <div class="con">
-      <!-- Row 1 -->
       <div class="content-row">
         <a class="thumb" href="https://www.youtube.com/embed/L2RlKSdtURU?si=8xyxH7EOtDxh2Oyb" target="_blank" rel="noopener">
           <img src="img/pic1.jpg" alt="img1">
         </a>
         <p class="label"><br>[히어로캠🎥]<br><br>이게 바로 히어로즈잖아🔥 김태진 만루 홈런 + 최주환 역전 적시타</p>
       </div>
-
-      <!-- Row 2 -->
       <div class="content-row alt">
         <p class="label"><br>THANK YOU 웰스💫<br><br>8주간의 생활을 마친 웰스 송별회 영상!</p>
         <a class="thumb" href="https://www.youtube.com/embed/GrAsp5nyT_E?si=L9SdYUiWw2r_haJm" target="_blank" rel="noopener">
           <img src="img/pic2.jpg" alt="img2">
         </a>
       </div>
-
-      <!-- Row 3 -->
       <div class="content-row">
         <a class="thumb" href="https://www.youtube.com/embed/hz8IQnV8Dlw?si=I2ntoGjZ1mLjRGGi" target="_blank" rel="noopener">
           <img src="img/pic3.jpg" alt="img3">
@@ -113,32 +116,91 @@
   <!-- JS -->
   <script>
     document.addEventListener("DOMContentLoaded", function(){
-      const openBtn = document.getElementById("openPanelBtn");
+      // ===== 오른쪽 패널 공통 핸들러 =====
       const side = document.getElementById("side");
+      const imgBtn = document.getElementById("openPanelBtn");       // 데스크톱용
+      const txtBtn = document.getElementById("mobileSideTrigger");   // 모바일용
       const closeBtn = side.querySelector(".close-btn");
+      const mqMobile = window.matchMedia("(max-width: 768px)");
 
       function openSide(){
-        openBtn.classList.add("pulse");
         side.classList.add("active");
         side.setAttribute("aria-hidden","false");
-        setTimeout(()=>openBtn.classList.remove("pulse"), 450);
       }
       function closeSide(){
         side.classList.remove("active");
         side.setAttribute("aria-hidden","true");
-        openBtn.focus();
       }
 
-      openBtn.addEventListener("click", openSide);
-      closeBtn.addEventListener("click", closeSide);
+      // (1) 데스크톱: 이미지 버튼으로 열기
+      if (imgBtn) imgBtn.addEventListener("click", openSide);
 
-      // 키보드 접근성
-      openBtn.addEventListener("keydown", e=>{
-        if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openSide(); }
-      });
-      document.addEventListener("keydown", e=>{
-        if(e.key==="Escape") closeSide();
-      });
+      // (2) 모바일: Click me! 텍스트로 열기 (Enter/Space 지원)
+      function bindMobileTrigger(){
+        if (!txtBtn) return;
+        txtBtn.onclick = null;
+        txtBtn.onkeydown = null;
+
+        if (mqMobile.matches){
+          txtBtn.addEventListener("click", openSide);
+          txtBtn.addEventListener("keydown", (e)=>{
+            if(e.key==="Enter" || e.key===" "){ e.preventDefault(); openSide(); }
+          });
+        }
+      }
+      bindMobileTrigger();
+      mqMobile.addEventListener("change", bindMobileTrigger);
+
+      // 닫기 버튼 + ESC
+      closeBtn.addEventListener("click", closeSide);
+      document.addEventListener("keydown", e=>{ if(e.key==="Escape") closeSide(); });
+
+      // ===== 햄버거(모바일에서만) =====
+      const burger = document.getElementById("burgerBtn");
+      const gnb = document.getElementById("gnb");
+      if (burger && gnb) {
+        burger.addEventListener("click", () => {
+          const willOpen = !gnb.classList.contains("open");
+          gnb.classList.toggle("open", willOpen);
+          burger.setAttribute("aria-expanded", String(willOpen));
+        });
+
+        // 모바일에서 상위 메뉴 클릭 -> 아코디언
+        function bindAccordion(){
+          const isMobile = mqMobile.matches;
+          gnb.querySelectorAll(":scope > li").forEach(li=>{
+            const topLink = li.querySelector(":scope > a");
+            const sub = li.querySelector(":scope > ul");
+            if(!topLink || !sub) return;
+            topLink.onclick = null;
+            if(isMobile){
+              topLink.onclick = (e)=>{
+                e.preventDefault();
+                const expanded = li.classList.toggle("expanded");
+                if(expanded){
+                  gnb.querySelectorAll(":scope > li").forEach(sib=>{
+                    if(sib!==li) sib.classList.remove("expanded");
+                  });
+                }
+              };
+            }
+          });
+        }
+        bindAccordion();
+        mqMobile.addEventListener("change", bindAccordion);
+
+        // 데스크톱으로 복귀 시 상태 초기화
+        const mqDesktop = window.matchMedia("(min-width: 769px)");
+        function resetIfDesktop(){
+          if(mqDesktop.matches){
+            gnb.classList.remove("open");
+            burger.setAttribute("aria-expanded","false");
+            gnb.querySelectorAll(":scope > li").forEach(li=>li.classList.remove("expanded"));
+          }
+        }
+        mqDesktop.addEventListener("change", resetIfDesktop);
+        resetIfDesktop();
+      }
     });
   </script>
 </body>
